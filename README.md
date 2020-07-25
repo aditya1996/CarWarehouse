@@ -1,2 +1,3 @@
 # CarWarehouse
-Warehouse object with a SQLite database for storing cars and performing analysis
+
+Huge Analytics platform for a Car Warehouse Database

@@ -1,6 +1,7 @@
 import sqlite3
 import pandas as pd
 import pickle
+from matplotlib import pyplot as plt
 
 class MyWarehouse():
 
@@ -53,7 +54,27 @@ class MyWarehouse():
 
         print(df['make'].value_counts())
 
-    
+        car_manf = []
+        no_cars = []
+
+        car_cnt = df['make'].value_counts().to_dict()
+
+        for key,value in car_cnt.items():
+            car_manf.append(key)
+            no_cars.append(value)
+
+        # Plotting Bar Chart
+
+        plt.style.use('fivethirtyeight')
+        
+        plt.bar(car_manf[:6],no_cars[:6])
+
+        plt.title('No. of cars from each manufacturer')
+        plt.xlabel('Manufacturer')
+        plt.ylabel('No. of Cars')
+
+        plt.show()
+
 
 	
 

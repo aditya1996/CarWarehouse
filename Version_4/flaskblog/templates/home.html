@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="jumbotron">
+    <h1 class="display-5">Welcome to the Online Car Warehouse!</h1>
+    <p class="lead">You can add cars to this database and delete them when you want to.</p>
+    <hr class="my-4">
+    <p>We will keep track of everthing for you!</p>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('table') }}" role="button">Check out the Database!</a>
+    </div>
+    {% for post in posts %}
+    <div class='card-deck'>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ post.make }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ post.fueltype }}</h6>
+          <p class="card-text">This car is a {{ post.bodystyle }} with 
+            {{ post.horsepower }} HorsePower and a mileage is {{ post.citympg }}</p>
+          <a href="#" class="btn btn-secondary">Price : {{ post.price }}$</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+      
+{% endblock content %}

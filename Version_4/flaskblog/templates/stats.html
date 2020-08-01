@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="jumbotron">
+    <h1 class="display-5">Let's see some statistics!!</h1>
+    <p class="lead">Let's see the average price of a car in your collection, most expensive car
+         and how many cars are present from each manufacturer.</p>
+    </div>
+    <div class="card">
+        <div class="card-body">
+          Average price of a car in your collection is : {{ mean_price }}$
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+          The Most expensive car in your collection is from : {{ maxprice_car['make'].values[0] }}, costing around : {{ maxprice_car['price'].values[0] }}$
+        </div>
+    </div>
+
+    <p>{{ title }}</p>
+
+    <img src="data:image/png;base64, {{ plot_url }}" alt="Chart" height="500" width="700">
+      
+{% endblock content %}

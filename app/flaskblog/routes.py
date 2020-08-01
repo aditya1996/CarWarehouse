@@ -50,14 +50,14 @@ def delete():
 
 @app.route("/loaddb")
 def loaddb():
-    df = pd.read_csv('/Users/adityatiwari/Desktop/Python/MyPractice/flask_blog/flaskblog/car_data.csv')
+    df = pd.read_csv('./flaskblog/car_data.csv')
     car_df = df[['make','fuel-type','body-style','horsepower','city-mpg','price']]
     car_df.replace('?',0,inplace=True)
     car_df['price'] = pd.to_numeric(car_df['price'])
     car_df['horsepower'] = pd.to_numeric(car_df['horsepower'])
     car_df['city-mpg'] = pd.to_numeric(car_df['city-mpg'])
     car_df.rename(columns={'fuel-type' : 'fueltype', 'body-style' : 'bodystyle', 'city-mpg' : 'citympg'},inplace=True)
-    conn = sqlite3.connect('/Users/adityatiwari/Desktop/Python/MyPractice/flask_blog/flaskblog/cars.db')
+    conn = sqlite3.connect('./flaskblog/cars.db')
     car_df.to_sql('post', conn, if_exists='append', index=False)
     posts = Post.query.limit(5).all()
     return render_template('loaddb.html', title='About', posts=posts)
@@ -75,7 +75,7 @@ def deletedb():
 def plot():
     try:
         import sqlite3
-        conn = sqlite3.connect('/Users/adityatiwari/Desktop/Python/MyPractice/flask_blog/flaskblog/cars.db')
+        conn = sqlite3.connect('./flaskblog/cars.db')
         pdf = pd.read_sql_query('Select * from post',conn)
         maxprice_car = pdf[pdf.price == pdf.price.max()]
         mean_price = round(pdf['price'].mean())

@@ -88,20 +88,36 @@ def plot():
         for key,value in car_cnt.items():
             car_manf.append(key)
             no_cars.append(value)
+        
+        body_types = []
+        no_cars1 = []
+
+        body_cnt = pdf['bodystyle'].value_counts().to_dict()
+
+        for key,value in body_cnt.items():
+            body_types.append(key)
+            no_cars1.append(value)
 
         plt.style.use('fivethirtyeight')
 
         img = BytesIO()
 
-        plt.bar(car_manf[:6],no_cars[:6])
-        plt.title('No. of cars from each manufacturer')
-        plt.xlabel('Manufacturer')
-        plt.ylabel('No. of Cars')
+        plt.pie(no_cars[:6],labels=car_manf[:6],shadow=True,autopct='%1.1f%%')
+        plt.title('% of cars from each manufacturer')
         plt.savefig(img, format='png')
         plt.close()
         img.seek(0)
-        plot_url = base64.b64encode(img.getvalue()).decode('utf8')
+        pie_url_manu = base64.b64encode(img.getvalue()).decode('utf8')
 
-        return render_template('stats.html', plot_url=plot_url, maxprice_car=maxprice_car, mean_price=mean_price)
+        img1 = BytesIO()
+
+        plt.pie(no_cars1,labels=body_types,shadow=True,autopct='%1.1f%%')
+        plt.title('Types of Bodies')
+        plt.savefig(img1, format='png')
+        plt.close()
+        img1.seek(0)
+        pie_url_body = base64.b64encode(img1.getvalue()).decode('utf8')
+
+        return render_template('stats.html', pie_url_manu=pie_url_manu, pie_url_body=pie_url_body, maxprice_car=maxprice_car, mean_price=mean_price)
     except:
         return render_template('empty.html')
